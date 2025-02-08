@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import bikes from "../Bikes"
+import bikes from "../assets/Bikes"
 import { IoArrowBack } from "react-icons/io5";
 import { Link, useLocation } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,7 +18,7 @@ const BikeDetail = () => {
   const pagination = {
     clickable: true,
     renderBullet: function (index, className) {
-      return `<span class="${className}" style="width: 80px; height: 80px; display: inline-block;">
+      return `<span class="${className} thumbnails" style="">
               <img src="${bike.images[index]}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;" />
             </span>`;
     },
@@ -61,7 +61,7 @@ const BikeDetail = () => {
         
         <main className=''>
           <div className="flex gap-[40px] max-sm:flex-col ">
-            <div className='h-auto w-[60%] rounded-[30px] overflow-hidden'>
+            <div className='h-auto sm:w-[60%] rounded-[30px] overflow-hidden'>
             <Swiper
                 pagination={pagination}
                 navigation={true}
@@ -82,8 +82,7 @@ const BikeDetail = () => {
           </div>
 
           <div className="flex">
-            <div className='bg-white border-2 basis-[65%]'>description</div>
-            <div className='bg-white border-2 grow-1'></div>
+            <div className='bg-white border-2 basis-[60%]'>description</div>
           </div>
 
 
