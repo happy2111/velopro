@@ -1,64 +1,64 @@
-import React, { useState } from 'react'
-import { IoCart, IoCartOutline, IoHeartOutline, IoHeart, IoMenuOutline, IoCloseOutline    } from "react-icons/io5";
-import { Link } from 'react-router-dom';
+import React, {useState} from "react";
+import { ShoppingCart, Menu, X, Moon, Sun } from 'lucide-react';
+import ThemeToggle from "./ThemeToggle";
 
-const Navbar = () => {
-  const [ menu, setMenu ] = useState(false)
+const Navbar = ({ cartCount, toggleCart, theme, toggleTheme }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  function menuHandler() {
-    setMenu(!menu)
-  }
-  let links = [
-    {name: "Asosiy", href: "", current: true },
-    {name: "Do'kon", href: "", current: true },
-    {name: "Biz Haqimizda", href: "", current: true },
-    {name: "Bog'lanish", href: "", current: true },
-  ]
+
+
   return (
-    <header className='h-[80px] max-sm:h-[55px] bg-black flex items-center relative '>
-        <nav className='container flex justify-between text-white'>
-          <div className='flex gap-2 items-center'>
-            <span className='sm:hidden  text-3xl'>
-              <button>
-                <IoMenuOutline onClick={menuHandler} className={menu ? "hidden": "block"}/>
-              </button>
-              <button>
-                <IoCloseOutline className={menu ? "block": "hidden"} onClick={menuHandler}/>
-              </button>
-            </span>
-            
-            <a href="" className='font-semibold text-3xl max-sm:text-2xl' >VELOPRO</a>
+    <nav className="bg-white dark:bg-neutral-950 border-b border-gray-200 dark:border-neutral-800 sticky top-0 z-50 transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <h1 className="text-2xl font-bold text-black dark:text-white">BikeShop</h1>
           </div>
-          
-          <ul className='hidden  sm:flex items-center gap-[35px] text-[16px] '>
-            {
-              links.map((i, index) => (
-                <li key={index}><a href={i.href} className="">{i.name}</a></li>
-              ))
-            }
-          </ul>
 
-          <div className='flex items-center text-3xl gap-[20px]'>
-            <button>
-              <IoHeartOutline />
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-8">
+              <a href="#home" className="text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200 font-medium">Главная</a>
+              <a href="#about" className="text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200 font-medium">О нас</a>
+              <a href="#products" className="text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200 font-medium">Товары</a>
+              <a href="#contact" className="text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200 font-medium">Контакты</a>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+            <button
+              onClick={toggleCart}
+              className="relative p-2 text-black dark:text-white hover:text-red-600 transition-colors duration-200"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
             </button>
-            <button>
-              <IoCartOutline />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 text-black dark:text-white hover:text-red-600 transition-colors duration-200"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
+        </div>
 
-          <div className={menu ? "top-[55px] fixed bg-black  left-0  w-full z-90 sm:invisible" : "invisible h-0!  top-[55px] opacity-0 bg-black absolute  left-0  w-full "}  style={{height: "calc(100vh - 55px)", transition: "0.3s", padding: "30px 15px 0 15px"}} >
-            <ul className='flex  flex-col items-start gap-[30px] text-[18px] '>
-              {
-                links.map((i, index) => (
-                  <li key={index}><Link onClick={menuHandler} href={i.href} className="">{i.name}</Link></li>
-                ))
-              }
-            </ul>
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-neutral-950 border-t dark:border-neutral-800">
+              <a href="#home" className="block px-3 py-2 text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200">Главная</a>
+              <a href="#about" className="block px-3 py-2 text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200">О нас</a>
+              <a href="#products" className="block px-3 py-2 text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200">Товары</a>
+              <a href="#contact" className="block px-3 py-2 text-black dark:text-white hover:text-red-600 dark:hover:text-red-600 transition-colors duration-200">Контакты</a>
+            </div>
           </div>
-        </nav>
-    </header>
-  )
-}
+        )}
+      </div>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
