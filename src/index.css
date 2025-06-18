@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* Светлая тема (по умолчанию) */
+body {
+  @apply bg-white text-black;
+}
+
+/* Тёмная тема */
+html.dark body {
+  @apply bg-neutral-950 text-white;
+}
+
+/* Кнопки и элементы с primary color */
+.btn-primary {
+  @apply bg-red-600 text-white hover:bg-red-700 transition-colors;
+}
+
+/* Пример для карточек и секций */
+.card {
+  @apply bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-2xl;
+}
+
+/* Для плавного перехода между темами */
+html, body, #root {
+  transition: background-color 0.3s, color 0.3s;
+}
